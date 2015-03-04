@@ -27,25 +27,16 @@ public class Connexion {
 	private Connexion() {
 	}
 
-	/**
-	 * public Connection getConnexion( )throws MonException { Connection conn =
-	 * null; try { Context ctxt = new InitialContext(); // On r�cup�re
-	 * l'environnement Context envCtx = (Context) ctxt.lookup("java:comp/env");
-	 * // On recherche la data source DataSource ds = (DataSource)
-	 * envCtx.lookup("jdbc/DSMesStages"); conn= ds.getConnection();
-	 * 
-	 * } catch( SQLException e ) { throw new MonException(e.getMessage()); }
-	 * catch ( Exception e ) { throw new MonException(e.getMessage()); } return
-	 * conn; }
-	 */
-
+	// Connexion à la base de données Tomcat
 	public Connection getConnexion() throws MonException {
 		Connection conn = null;
 		try {
-			Context ctxt = new InitialContext();
+			Context ctxt = new InitialContext(); // On r�cup�re l'environnement
+			Context envCtx = (Context) ctxt.lookup("java:comp/env");
 			// On recherche la data source
-			DataSource ds = (DataSource) ctxt.lookup("java:/DSStages");
+			DataSource ds = (DataSource) envCtx.lookup("jdbc/DSMesStages");
 			conn = ds.getConnection();
+
 		} catch (SQLException e) {
 			throw new MonException(e.getMessage());
 		} catch (Exception e) {
@@ -53,5 +44,20 @@ public class Connexion {
 		}
 		return conn;
 	}
+
+	// public Connection getConnexion() throws MonException {
+	// Connection conn = null;
+	// try {
+	// Context ctxt = new InitialContext();
+	// // On recherche la data source
+	// DataSource ds = (DataSource) ctxt.lookup("java:/DSStages");
+	// conn = ds.getConnection();
+	// } catch (SQLException e) {
+	// throw new MonException(e.getMessage());
+	// } catch (Exception e) {
+	// throw new MonException(e.getMessage());
+	// }
+	// return conn;
+	// }
 
 }
