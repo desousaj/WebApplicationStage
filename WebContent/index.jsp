@@ -68,7 +68,7 @@
 											<a href="Controleur?action=rechercheStage">Création d'un stagiaire</a>
 										</div>
 										<div class="panel-body">
-											<a href="Controleur?action=rechercheStage">Afficher les stagiaires</a>
+											<a href="Controleur?action=afficheStagiaire">Afficher les stagiaires</a>
 										</div>
 										<div class="panel-body">
 											<a href="Controleur?action=rechercheStage">Rechercher un stagiaire</a>

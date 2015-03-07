@@ -117,7 +117,7 @@ public class Stagiaire {
 		try {
 			String mysql = "";
 
-			mysql = "SELECT * FROM stagiaires ORDER BY id ASC";
+			mysql = "SELECT * FROM stagiaires ORDER BY num ASC";
 
 			rs = DialogueBd.lecture(mysql);
 
