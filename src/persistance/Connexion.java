@@ -59,5 +59,17 @@ public class Connexion {
 	// }
 	// return conn;
 	// }
+	
+	/*
+	// Pour tomcat
+	   // On récupère l'environnement
+	   Context envCtx = (Context) ctxt.lookup("java:comp/env");
+	   // On recherche la data source
+    DataSource ds = (DataSource) envCtx.lookup("jdbc/DSMesStages");
+    
+    // pour Jboss
+    // On recherche la data source
+//    DataSource ds = (DataSource) ctxt.lookup("java:/DSStages");
+*/
 
 }
