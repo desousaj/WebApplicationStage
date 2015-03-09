@@ -55,7 +55,7 @@
 											<a href="Controleur?action=afficheStage">Affichage liste des stages</a>
 										</div>
 										<div class="panel-body">
-											<a href="Controleur?action=rechercheStage">Recherche d'un stage</a>
+											<a href="Controleur?action=rechercherStages">Recherche d'un stage</a>
 										</div>
 									</div>
 								</div>
