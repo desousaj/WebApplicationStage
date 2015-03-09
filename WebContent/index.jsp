@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.Date,java.text.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -23,6 +24,19 @@
 
 
 	<body>
+	<c:if test="${not empty MesSucces}">	
+		<div class="alert alert-success alert-dismissible" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <strong>Succès !</strong> ${MesSucces}
+		</div>
+	</c:if>
+	
+	<c:if test="${not empty MesErreurs}">
+		<div class="alert alert-danger alert-dismissible" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <strong>Erreur !</strong> ${MesErreurs}
+		</div>
+	</c:if>
 		<div class="container">
 			<div class="row clearfix">
 				<div class="col-md-12 column">

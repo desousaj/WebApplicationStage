@@ -28,13 +28,11 @@ public class Controleur extends HttpServlet {
 	private static final String AJOUT_STAGE = "ajoutStage";
 	private static final String MODIFIER_STAGE = "modifierStage";
 	private static final String RECHERCHER_STAGE = "rechercherStages";
+	private static final String SUPPRIMER_STAGE = "supprimerStage";
 
-	// Action sur les stagiaires
-	private static final String CHERCHER_STAGIAIRE = "chercheStagiaire";
 	private static final String SAISIE_STAGIAIRE = "saisieStagiaire";
 	private static final String AFFICHER_STAGIAIRE = "afficheStagiaire";
 	private static final String AJOUT_STAGIAIRE = "ajoutStagiaire";
-	private static final String MODIFIER_STAGIAIRE = "modifierStagiaire";
 	private static final String ERROR_PAGE = null;
 
 	// le format est une combinaison de MM dd yyyy avec / ou �
@@ -66,6 +64,12 @@ public class Controleur extends HttpServlet {
 		case AFFICHER_STAGE:
 			destinationPage = showStages(request);
 			break;
+		case MODIFIER_STAGE:
+			destinationPage = modifierStage(request);
+			break;
+		case SUPPRIMER_STAGE:
+			destinationPage = supprimerStage(request);
+			break;
 		case RECHERCHER_STAGE:
 			destinationPage = rechercherStages(request);
 			break;
@@ -87,6 +91,29 @@ public class Controleur extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher(destinationPage);
 		dispatcher.forward(request, response);
+	}
+
+	private String supprimerStage(HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String destinationPage = "";
+		if (id != null && id != "") {
+			Stage unStage = new Stage();
+			try {
+				unStage.suppressionStage(id);
+				destinationPage = "/index.jsp";
+				request.setAttribute("MesSucces",
+						"Le stage a bien été supprimer !");
+			} catch (Exception e) {
+				request.setAttribute("MesErreurs", e.getMessage());
+				System.out.println(e.getMessage());
+			}
+		}
+		return destinationPage;
+	}
+
+	private String modifierStage(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private String showStagiaires(HttpServletRequest request)
@@ -164,36 +191,39 @@ public class Controleur extends HttpServlet {
 					(request.getParameter("nbinscrits"))).intValue());
 			unStage.insertionStage();
 			destinationPage = "/index.jsp";
+			request.setAttribute("MesSucces",
+					"Le stage a bien été ajouté !");
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 			System.out.println(e.getMessage());
 		}
 		return destinationPage;
 	}
-	
+
 	private String rechercherStages(HttpServletRequest request) {
 		String destinationPage = "";
 		List<Stage> listeStages;
 		try {
 			Stage unStage = new Stage();
 			request.setAttribute("affichageListe", 1);
-			listeStages = unStage.rechercheLesStages(request.getParameter("libelle"));
+			listeStages = unStage.rechercheLesStages(request
+					.getParameter("libelle"));
 			request.setAttribute("liste", listeStages);
 			request.setAttribute("libelle", request.getParameter("libelle"));
-			
-//			unStage.setId(request.getParameter("id"));
-//			unStage.setLibelle(request.getParameter("libelle"));
-//			unStage.setDatedebut(conversionChaineenDate(
-//					request.getParameter("datedebut"), "yyyy/MM/dd"));
-//			unStage.setDatefin(conversionChaineenDate(
-//					request.getParameter("datefin"), "yyyy/MM/dd"));
-//			unStage.setNbplaces(Integer.parseInt(request
-//					.getParameter("nbplaces")));
-//			unStage.setNbinscrits(Integer.valueOf(
-//					(request.getParameter("nbplaces"))).intValue());
-//			unStage.setNbinscrits(Integer.valueOf(
-//					(request.getParameter("nbinscrits"))).intValue());
-//			unStage.insertionStage();
+
+			// unStage.setId(request.getParameter("id"));
+			// unStage.setLibelle(request.getParameter("libelle"));
+			// unStage.setDatedebut(conversionChaineenDate(
+			// request.getParameter("datedebut"), "yyyy/MM/dd"));
+			// unStage.setDatefin(conversionChaineenDate(
+			// request.getParameter("datefin"), "yyyy/MM/dd"));
+			// unStage.setNbplaces(Integer.parseInt(request
+			// .getParameter("nbplaces")));
+			// unStage.setNbinscrits(Integer.valueOf(
+			// (request.getParameter("nbplaces"))).intValue());
+			// unStage.setNbinscrits(Integer.valueOf(
+			// (request.getParameter("nbinscrits"))).intValue());
+			// unStage.insertionStage();
 			destinationPage = "/rechercherStages.jsp";
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
