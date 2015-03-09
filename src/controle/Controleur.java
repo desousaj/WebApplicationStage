@@ -28,7 +28,6 @@ public class Controleur extends HttpServlet {
 	private static final String AJOUT_STAGE = "ajoutStage";
 	private static final String MODIFIER_STAGE = "modifierStage";
 	private static final String RECHERCHER_STAGE = "rechercherStages";
-	private static final String SUPPRIMER_STAGE = "supprimerStage";
 
 	// Action sur les stagiaires
 	private static final String CHERCHER_STAGIAIRE = "chercheStagiaire";
@@ -65,13 +64,7 @@ public class Controleur extends HttpServlet {
 			destinationPage = ajoutStage(request);
 			break;
 		case AFFICHER_STAGE:
-			destinationPage = afficherStages(request);
-			break;
-		case MODIFIER_STAGE:
-			destinationPage = modifierStage(request);
-			break;
-		case SUPPRIMER_STAGE:
-			destinationPage = supprimerStage(request);
+			destinationPage = showStages(request);
 			break;
 		case RECHERCHER_STAGE:
 			destinationPage = rechercherStages(request);
@@ -87,7 +80,7 @@ public class Controleur extends HttpServlet {
 			break;
 
 		case AFFICHER_STAGIAIRE:
-			destinationPage = afficherStagiaires(request);
+			destinationPage = showStagiaires(request);
 			break;
 		}
 		// Redirection vers la page jsp appropriee
@@ -96,37 +89,7 @@ public class Controleur extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	private String supprimerStage(HttpServletRequest request) {
-		String id = request.getParameter("id");
-		String destinationPage = "";
-		if (id != null && id != "") {
-			Stage unStage = new Stage();
-			try {
-				unStage.suppressionStage(id);
-				destinationPage = "/index.jsp";
-				request.setAttribute("MesSucces",
-						"Le stage a bien été supprimer !");
-			} catch (Exception e) {
-				request.setAttribute("MesErreurs", e.getMessage());
-				System.out.println(e.getMessage());
-			}
-		}
-		return destinationPage;
-	}
-
-	/**
-	 * Méthode qui permet d'afficher la page avec les données actuels du stage à
-	 * modifier
-	 * 
-	 * @param request
-	 * @return
-	 */
-	private String modifierStage(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private String afficherStagiaires(HttpServletRequest request)
+	private String showStagiaires(HttpServletRequest request)
 			throws ParseException {
 		String destinationPage;
 		List<Stagiaire> listeStagiaires;
@@ -166,8 +129,7 @@ public class Controleur extends HttpServlet {
 		return destinationPage;
 	}
 
-	private String afficherStages(HttpServletRequest request)
-			throws ParseException {
+	private String showStages(HttpServletRequest request) throws ParseException {
 		String destinationPage;
 		List<Stage> listeStages;
 		try {
@@ -202,7 +164,6 @@ public class Controleur extends HttpServlet {
 					(request.getParameter("nbinscrits"))).intValue());
 			unStage.insertionStage();
 			destinationPage = "/index.jsp";
-			request.setAttribute("MesSucces", "Le stage a bien été ajouté !");
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 			System.out.println(e.getMessage());
