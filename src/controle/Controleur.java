@@ -27,7 +27,7 @@ public class Controleur extends HttpServlet {
 	private static final String AFFICHER_STAGE = "afficheStage";
 	private static final String AJOUT_STAGE = "ajoutStage";
 	private static final String MODIFIER_STAGE = "modifierStage";
-	private static final String RECHERCHER_STAGE = "rechercheStage";
+	private static final String RECHERCHER_STAGE = "rechercherStages";
 
 	// Action sur les stagiaires
 	private static final String CHERCHER_STAGIAIRE = "chercheStagiaire";
@@ -65,6 +65,9 @@ public class Controleur extends HttpServlet {
 			break;
 		case AFFICHER_STAGE:
 			destinationPage = showStages(request);
+			break;
+		case RECHERCHER_STAGE:
+			destinationPage = rechercherStages(request);
 			break;
 
 		// Application sur les stagiaires
@@ -164,6 +167,38 @@ public class Controleur extends HttpServlet {
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 			System.out.println(e.getMessage());
+		}
+		return destinationPage;
+	}
+	
+	private String rechercherStages(HttpServletRequest request) {
+		String destinationPage = "";
+		List<Stage> listeStages;
+		try {
+			Stage unStage = new Stage();
+			request.setAttribute("affichageListe", 1);
+			listeStages = unStage.rechercheLesStages(request.getParameter("libelle"));
+			request.setAttribute("liste", listeStages);
+			request.setAttribute("libelle", request.getParameter("libelle"));
+			
+//			unStage.setId(request.getParameter("id"));
+//			unStage.setLibelle(request.getParameter("libelle"));
+//			unStage.setDatedebut(conversionChaineenDate(
+//					request.getParameter("datedebut"), "yyyy/MM/dd"));
+//			unStage.setDatefin(conversionChaineenDate(
+//					request.getParameter("datefin"), "yyyy/MM/dd"));
+//			unStage.setNbplaces(Integer.parseInt(request
+//					.getParameter("nbplaces")));
+//			unStage.setNbinscrits(Integer.valueOf(
+//					(request.getParameter("nbplaces"))).intValue());
+//			unStage.setNbinscrits(Integer.valueOf(
+//					(request.getParameter("nbinscrits"))).intValue());
+//			unStage.insertionStage();
+			destinationPage = "/rechercherStages.jsp";
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			System.out.println(e.getMessage());
+			destinationPage = "/Erreur.jsp";
 		}
 		return destinationPage;
 	}
