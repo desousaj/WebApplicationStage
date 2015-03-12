@@ -146,6 +146,7 @@ public class Stage {
 
 	}
 
+	@SuppressWarnings("finally")
 	public Stage rechercheUnStage(String id) throws Exception {
 		Stage unS = null;
 		int index = 0;
@@ -172,6 +173,8 @@ public class Stage {
 			return unS;
 		} catch (MonException e) {
 			throw e;
+		} finally {
+			return unS;
 		}
 	}
 

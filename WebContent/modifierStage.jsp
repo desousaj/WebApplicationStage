@@ -45,30 +45,36 @@
 					<div class="row clearfix">
 						<div class="col-md-12 column">
 							<input type ="hidden" name="uneErreur"  value="${MesErreurs}"  id ="id_erreur" >
-							<form method="post" action="Controleur" onsubmit="return verif();">
+							<form id="form" method="post" action="Controleur" >
 							<input type="hidden" name="lastId" value="${stage.id}"  id="lastId"/>
   							<input type="hidden" name="action" value="modifierStage" />
-								<div class="form-group">
+								<div class="form-group" id="num">
 									 <label for="id">Numéro</label><input class="form-control" type="text" name="id" value="${stage.id}" id="id" />
+									 <span class="error-message"></span>
 								</div>
-								<div class="form-group">
+								<div class="form-group" id="lib">
 									 <label for="libelle">Libellé</label><input class="form-control" type="text" name="libelle" value="${stage.libelle}" id="libelle" />
+									 <span class="error-message"></span>
 								</div>
-								<div class="form-group">								
+								<div class="form-group" id="dd">								
 									 <label for="datedebut">Date de début du stage</label>
 									 <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${stage.datedebut}" pattern="yyyy-MM-dd" var="datedebformat"/>
-									 <input class="form-control" id="datedeb" type="date" name="datedeb" value="${datedebformat}" />
+									 <input class="form-control" id="datedebut" type="date" name="datedebut" value="${datedebformat}" />
+									 <span class="error-message"></span>
 								</div>
-								<div class="form-group">
+								<div class="form-group" id="df">
 									 <label for="datefin">Date de fin de stage</label>
 									 <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${stage.datefin}" pattern="yyyy-MM-dd" var="datefinformat"/>
 									 <input class="form-control" type="date" name="datefin" value="${datefinformat}" id="datefin" />
+									 <span class="error-message"></span>
 								</div>
-								<div class="form-group">
+								<div class="form-group" id="np">
 									 <label for="nbplaces">Nombre de places</label><input class="form-control" type="text" name="nbplaces" value="${stage.nbplaces}" id="nbplaces" />
+									 <span class="error-message"></span>
 								</div>
-								<div class="form-group">
+								<div class="form-group" id="ni">
 									 <label for="nbinscrits">Nombre d'inscrits</label><input class="form-control" type="text" name="nbinscrits" value="${stage.nbinscrits}" id="nbinscrits" />
+									 <span class="error-message"></span>
 								</div>
 								
 								<button type="submit" class="btn btn-default" name="ajouter" value="Ajouter">Modifier</button>							
@@ -77,7 +83,9 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		
+		</div>		
 	</body>
+	<script>
+		bindForm();
+  	</script>
 </html>

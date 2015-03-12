@@ -93,7 +93,7 @@ public class Controleur extends HttpServlet {
 			Stage unStage = new Stage();
 			unStage.setId(request.getParameter("id"));
 			unStage.setLibelle(request.getParameter("libelle"));
-			String dd = request.getParameter("datedeb");
+			String dd = request.getParameter("datedebut");
 			unStage.setDatedebut(Utils.conversionChaineenDate(dd, "yyyy-MM-dd"));
 			String df = request.getParameter("datefin");
 			unStage.setDatefin(Utils.conversionChaineenDate(df, "yyyy-MM-dd"));
@@ -245,6 +245,7 @@ public class Controleur extends HttpServlet {
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 			System.out.println(e.getMessage());
+			return destinationPage = "/index.jsp";
 		}
 		return destinationPage;
 	}
