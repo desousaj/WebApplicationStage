@@ -1,5 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%> 
+<%@page import="java.util.Date,java.text.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -21,16 +24,11 @@
 		
 		<!-- TODO mettre dans js  -->
 		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
-		<script>
-		  $(function() {
-// 		    $("#datedebut").datepicker();
-// 		    $("#datefin").datepicker();
-		  });
-  		</script>
+
 	</head>
 
 
-<body  onLoad="Chargement();">
+<body onLoad="Chargement();">
 <!--  TODO : faire un menu-->
 <P><A href="index.jsp"><FONT face="Arial" color="#004080">Retour Accueil</FONT></A></P>
 
@@ -40,7 +38,7 @@
 					<div class="row clearfix">
 						<div class="col-md-12 column">
 							<h3 class="text-center">
-								Formulaire d'ajout d'un stage
+								Formulaire de modification d'un stage
 							</h3>
 						</div>
 					</div>
@@ -48,19 +46,23 @@
 						<div class="col-md-12 column">
 							<input type ="hidden" name="uneErreur"  value="${MesErreurs}"  id ="id_erreur" >
 							<form method="post" action="Controleur" onsubmit="return verif();">
-							<input type="hidden" name="type" value="ajout"  id="type"/>
-  							<input type="hidden" name="action" value="ajoutStage" />
+							<input type="hidden" name="lastId" value="${stage.id}"  id="lastId"/>
+  							<input type="hidden" name="action" value="modifierStage" />
 								<div class="form-group">
 									 <label for="id">Numéro</label><input class="form-control" type="text" name="id" value="${stage.id}" id="id" />
 								</div>
 								<div class="form-group">
 									 <label for="libelle">Libellé</label><input class="form-control" type="text" name="libelle" value="${stage.libelle}" id="libelle" />
 								</div>
-								<div class="form-group">
-									 <label for="datedebut">Date de début du stage</label><input class="form-control" type="Date" pattern="dd/MM/yyyy" name="datedebut" value="${stage.datedebut}" id="datedebut" />
+								<div class="form-group">								
+									 <label for="datedebut">Date de début du stage</label>
+									 <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${stage.datedebut}" pattern="yyyy-MM-dd" var="datedebformat"/>
+									 <input class="form-control" id="datedeb" type="date" name="datedeb" value="${datedebformat}" />
 								</div>
 								<div class="form-group">
-									 <label for="datefin">Date de fin de stage</label><input class="form-control" type="Date" pattern="dd/MM/yyyy" name="datefin" value="${stage.datefin}" id="datefin" />
+									 <label for="datefin">Date de fin de stage</label>
+									 <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${stage.datefin}" pattern="yyyy-MM-dd" var="datefinformat"/>
+									 <input class="form-control" type="date" name="datefin" value="${datefinformat}" id="datefin" />
 								</div>
 								<div class="form-group">
 									 <label for="nbplaces">Nombre de places</label><input class="form-control" type="text" name="nbplaces" value="${stage.nbplaces}" id="nbplaces" />
@@ -69,9 +71,7 @@
 									 <label for="nbinscrits">Nombre d'inscrits</label><input class="form-control" type="text" name="nbinscrits" value="${stage.nbinscrits}" id="nbinscrits" />
 								</div>
 								
-								<button type="submit" class="btn btn-default" name="ajouter" value="Ajouter">Ajouter</button>
-								<button type="reset" class="btn btn-default" name="reset" value="Reset">Reset</button>
-							
+								<button type="submit" class="btn btn-default" name="ajouter" value="Ajouter">Modifier</button>							
 							</form>
 						</div>
 					</div>

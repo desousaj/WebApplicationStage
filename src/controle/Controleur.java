@@ -218,21 +218,30 @@ public class Controleur extends HttpServlet {
 		String destinationPage = "";
 		try {
 			Stage unStage = new Stage();
-			unStage.setId(request.getParameter("id"));
-			unStage.setLibelle(request.getParameter("libelle"));
-			unStage.setDatedebut(Utils.conversionChaineenDate(
-					request.getParameter("datedebut"), "yyyy-MM-dd"));
-			unStage.setDatefin(Utils.conversionChaineenDate(
-					request.getParameter("datefin"), "yyyy-MM-dd"));
-			unStage.setNbplaces(Integer.parseInt(request
-					.getParameter("nbplaces")));
-			unStage.setNbinscrits(Integer.valueOf(
-					(request.getParameter("nbplaces"))).intValue());
-			unStage.setNbinscrits(Integer.valueOf(
-					(request.getParameter("nbinscrits"))).intValue());
-			unStage.insertionStage();
-			destinationPage = "/index.jsp";
-			request.setAttribute("MesSucces", "Le stage a bien été ajouté !");
+			String id = request.getParameter("id");
+			if (unStage.rechercheUnStage(id) == null) {
+				unStage.setId(id);
+				unStage.setLibelle(request.getParameter("libelle"));
+				unStage.setDatedebut(Utils.conversionChaineenDate(
+						request.getParameter("datedebut"), "yyyy-MM-dd"));
+				unStage.setDatefin(Utils.conversionChaineenDate(
+						request.getParameter("datefin"), "yyyy-MM-dd"));
+				unStage.setNbplaces(Integer.parseInt(request
+						.getParameter("nbplaces")));
+				unStage.setNbinscrits(Integer.valueOf(
+						(request.getParameter("nbplaces"))).intValue());
+				unStage.setNbinscrits(Integer.valueOf(
+						(request.getParameter("nbinscrits"))).intValue());
+				unStage.insertionStage();
+				destinationPage = "/index.jsp";
+				request.setAttribute("MesSucces",
+						"Le stage a bien été ajouté !");
+			} else {// Il existe déjà un stage avec cet identifiant
+				request.setAttribute("MesErreurs",
+						"Cet identifiant est déjà utilisé !");
+				System.out.println("Cet identifiant est déjà utilisé !");
+				destinationPage = "/index.jsp";
+			}
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 			System.out.println(e.getMessage());
