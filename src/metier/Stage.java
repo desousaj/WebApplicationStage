@@ -9,6 +9,7 @@ import java.util.List;
 
 import meserreurs.MonException;
 import persistance.DialogueBd;
+import utils.Utils;
 
 public class Stage {
 
@@ -105,7 +106,7 @@ public class Stage {
 			throw e;
 		}
 	}
-	
+
 	public void suppressionStage(String id) throws MonException {
 		try {
 			String mysql = "DELETE FROM stages WHERE id = " + id;
@@ -115,39 +116,66 @@ public class Stage {
 		}
 	}
 
-	public Stage rechercheUnStage(String id) throws MonException,
-	ParseException {
-Stage unS = null;
-int index = 0;
-try {
-	String mysql = "select * FROM stages WHERE id = " + id;
-	List<Object> rs = DialogueBd.lecture(mysql);
-	if (rs != null && !rs.isEmpty()) {
-		unS = new Stage();
-		while (index < rs.size()) {
-			// On cr�e un stage
-			// il faut redecouper la liste pour retrouver les lignes
-			unS.setId(rs.get(index + 0).toString());
-			unS.setLibelle(rs.get(index + 1).toString());
-			DateFormat dateFormatpers = new SimpleDateFormat(
-					"yyyy-MM-dd");
-			unS.setDatedebut(dateFormatpers.parse(rs.get(index + 2)
-					.toString()));
-			unS.setDatefin((dateFormatpers.parse(rs.get(index + 3)
-					.toString())));
-			unS.setNbplaces(Integer.parseInt(rs.get(index + 4)
-					.toString()));
-			unS.setNbinscrits(Integer.parseInt(rs.get(index + 5)
-					.toString()));
+	public boolean idExist(String id) throws Exception {
+		return rechercheUnStage(id) != null;
+	}
+
+	/**
+	 * Met à jour le stage avec l'identifiant id et les données du stage stage
+	 * 
+	 * @param id
+	 * @param stage
+	 * @throws Exception
+	 */
+	public void misAJourStage(String id, Stage stage) throws Exception {
+		if (rechercheUnStage(id) != null) {
+			DateFormat dateFormatpers = new SimpleDateFormat("yyyy-MM-dd");
+			String dd = dateFormatpers.format(stage.getDatedebut());
+			String df = dateFormatpers.format(stage.getDatefin());
+			String mysql = "UPDATE stages SET id = '" + stage.getId() + "',"
+					+ "libelle = '" + stage.getLibelle() + "',"
+					+ "datedebut = '" + dd + "'," + "datefin = '" + df + "',"
+					+ "nbplaces = '" + stage.getNbplaces() + "',"
+					+ "nbinscrits = '" + stage.getNbinscrits()
+					+ "' where id = " + id;
+			DialogueBd.insertionBD(mysql);
+		} else {
+			throw (new MonException("Ce stage ne peut pas être modifier",
+					"id inconnu"));
+		}
+
+	}
+
+	public Stage rechercheUnStage(String id) throws Exception {
+		Stage unS = null;
+		int index = 0;
+		try {
+			String mysql = "select * FROM stages WHERE id = " + id;
+			List<Object> rs = DialogueBd.lecture(mysql);
+			if (rs != null && !rs.isEmpty()) {
+				unS = new Stage();
+				// On cr�e un stage
+				// il faut redecouper la liste pour retrouver les lignes
+				unS.setId(rs.get(index + 0).toString());
+				Date dateDebut = Utils.conversionChaineenDate(rs.get(index + 2)
+						.toString(), "yyyy-MM-dd");
+				Date dateFin = Utils.conversionChaineenDate(rs.get(index + 3)
+						.toString(), "yyyy-MM-dd");
+				unS.setLibelle(rs.get(index + 1).toString());
+				unS.setDatedebut(dateDebut);
+				unS.setDatefin(dateFin);
+				unS.setNbplaces(Integer.parseInt(rs.get(index + 4).toString()));
+				unS.setNbinscrits(Integer
+						.parseInt(rs.get(index + 5).toString()));
+
+			}
+			return unS;
+		} catch (MonException e) {
+			throw e;
 		}
 	}
-	return unS;
-} catch (MonException e) {
-	throw e;
-}
-}
-	
-	public List<Stage> rechercheLesStages() throws MonException, ParseException {
+
+	public List<Stage> rechercheLesStages() throws Exception {
 		List<Object> rs;
 		List<Stage> mesStages = new ArrayList<Stage>();
 		int index = 0;
@@ -164,11 +192,10 @@ try {
 				// il faut redecouper la liste pour retrouver les lignes
 				unS.setId(rs.get(index + 0).toString());
 				unS.setLibelle(rs.get(index + 1).toString());
-				DateFormat dateFormatpers = new SimpleDateFormat("yyyy-MM-dd");
-				unS.setDatedebut(dateFormatpers.parse(rs.get(index + 2)
-						.toString()));
-				unS.setDatefin((dateFormatpers.parse(rs.get(index + 3)
-						.toString())));
+				unS.setDatedebut(Utils.conversionChaineenDate(rs.get(index + 2)
+						.toString(), "yyyy-MM-dd"));
+				unS.setDatefin((Utils.conversionChaineenDate(rs.get(index + 3)
+						.toString(), "yyyy-MM-dd")));
 				unS.setNbplaces(Integer.parseInt(rs.get(index + 4).toString()));
 				unS.setNbinscrits(Integer
 						.parseInt(rs.get(index + 5).toString()));

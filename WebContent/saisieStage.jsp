@@ -23,8 +23,8 @@
 		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 		<script>
 		  $(function() {
-		    $("#datedebut").datepicker();
-		    $("#datefin").datepicker();
+// 		    $("#datedebut").datepicker();
+// 		    $("#datefin").datepicker();
 		  });
   		</script>
 	</head>
@@ -55,10 +55,10 @@
 									 <label for="libelle">Libellé</label><input class="form-control" type="text" name="libelle" value="${stage.libelle}" id="libelle" />
 								</div>
 								<div class="form-group">
-									 <label for="datedebut">Date de début du stage</label><input class="form-control" type="text" name="datedebut" value="${stage.datedebut}" id="datedebut" />
+									 <label for="datedebut">Date de début du stage</label><input class="form-control" type="Date" pattern="dd/MM/yyyy" name="datedebut" value="${stage.datedebut}" id="datedebut" />
 								</div>
 								<div class="form-group">
-									 <label for="datefin">Date de fin de stage</label><input class="form-control" type="text" name="datefin" value="${stage.datefin}" id="datefin" />
+									 <label for="datefin">Date de fin de stage</label><input class="form-control" type="Date" pattern="dd/MM/yyyy" name="datefin" value="${stage.datefin}" id="datefin" />
 								</div>
 								<div class="form-group">
 									 <label for="nbplaces">Nombre de places</label><input class="form-control" type="text" name="nbplaces" value="${stage.nbplaces}" id="nbplaces" />

@@ -2,8 +2,6 @@ package controle;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import meserreurs.MonException;
 import metier.Stage;
 import metier.Stagiaire;
+import utils.Utils;
 
 @WebServlet("/Controleur")
 public class Controleur extends HttpServlet {
@@ -26,7 +25,9 @@ public class Controleur extends HttpServlet {
 	private static final String SAISIE_STAGE = "saisieStage";
 	private static final String AFFICHER_STAGE = "afficheStage";
 	private static final String AJOUT_STAGE = "ajoutStage";
+	private static final String AFFICHER_MODIFIER_STAGE = "aficherModifierStage";
 	private static final String MODIFIER_STAGE = "modifierStage";
+
 	private static final String RECHERCHER_STAGE = "rechercherStages";
 	private static final String SUPPRIMER_STAGE = "supprimerStage";
 
@@ -34,17 +35,6 @@ public class Controleur extends HttpServlet {
 	private static final String AFFICHER_STAGIAIRE = "afficheStagiaire";
 	private static final String AJOUT_STAGIAIRE = "ajoutStagiaire";
 	private static final String ERROR_PAGE = null;
-
-	// le format est une combinaison de MM dd yyyy avec / ou �
-	// exemple dd/MM/yyyy
-	public Date conversionChaineenDate(String unedate, String unformat)
-			throws Exception {
-		Date datesortie;
-		// on d�finit un format de sortie
-		SimpleDateFormat defFormat = new SimpleDateFormat(unformat);
-		datesortie = defFormat.parse(unedate);
-		return datesortie;
-	}
 
 	protected void processusTraiteRequete(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException,
@@ -62,7 +52,10 @@ public class Controleur extends HttpServlet {
 			destinationPage = ajoutStage(request);
 			break;
 		case AFFICHER_STAGE:
-			destinationPage = showStages(request);
+			destinationPage = afficherStages(request);
+			break;
+		case AFFICHER_MODIFIER_STAGE:
+			destinationPage = afficherModifierStage(request);
 			break;
 		case MODIFIER_STAGE:
 			destinationPage = modifierStage(request);
@@ -84,13 +77,41 @@ public class Controleur extends HttpServlet {
 			break;
 
 		case AFFICHER_STAGIAIRE:
-			destinationPage = showStagiaires(request);
+			destinationPage = afficherStagiaires(request);
 			break;
 		}
 		// Redirection vers la page jsp appropriee
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher(destinationPage);
 		dispatcher.forward(request, response);
+	}
+
+	private String modifierStage(HttpServletRequest request) {
+		String destinationPage = "";
+		try {
+			String lastId = request.getParameter("lastId");
+			Stage unStage = new Stage();
+			unStage.setId(request.getParameter("id"));
+			unStage.setLibelle(request.getParameter("libelle"));
+			String dd = request.getParameter("datedeb");
+			unStage.setDatedebut(Utils.conversionChaineenDate(dd, "yyyy-MM-dd"));
+			String df = request.getParameter("datefin");
+			unStage.setDatefin(Utils.conversionChaineenDate(df, "yyyy-MM-dd"));
+			unStage.setNbplaces(Integer.parseInt(request
+					.getParameter("nbplaces")));
+			unStage.setNbinscrits(Integer.valueOf(
+					(request.getParameter("nbplaces"))).intValue());
+			unStage.setNbinscrits(Integer.valueOf(
+					(request.getParameter("nbinscrits"))).intValue());
+			unStage.misAJourStage(lastId, unStage);
+			destinationPage = "/index.jsp";
+			request.setAttribute("MesSucces", "Le stage a bien été modifié !");
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			System.out.println(e.getMessage());
+			return destinationPage = "/index.jsp";
+		}
+		return destinationPage;
 	}
 
 	private String supprimerStage(HttpServletRequest request) {
@@ -106,17 +127,36 @@ public class Controleur extends HttpServlet {
 			} catch (Exception e) {
 				request.setAttribute("MesErreurs", e.getMessage());
 				System.out.println(e.getMessage());
+				return destinationPage = "/index.jsp";
 			}
 		}
 		return destinationPage;
 	}
 
-	private String modifierStage(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+	private String afficherModifierStage(HttpServletRequest request) {
+		String destinationPage;
+		Stage stage;
+		try {
+			Stage unStage = new Stage();
+			String id = request.getParameter("id");
+			stage = unStage.rechercheUnStage(id);
+			if (stage != null) {
+				request.setAttribute("stage", stage);
+				destinationPage = "/modifierStage.jsp";
+			} else {
+				request.setAttribute("MesErreurs",
+						"Une érreur est survenu, veuillez contacter l'administrateur.");
+				destinationPage = "/Erreur.jsp";
+			}
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			return destinationPage = "/Erreur.jsp";
+
+		}
+		return destinationPage;
 	}
 
-	private String showStagiaires(HttpServletRequest request)
+	private String afficherStagiaires(HttpServletRequest request)
 			throws ParseException {
 		String destinationPage;
 		List<Stagiaire> listeStagiaires;
@@ -144,7 +184,7 @@ public class Controleur extends HttpServlet {
 			unStagiaire.setVille(request.getParameter("ville"));
 			unStagiaire.setCpostal(request.getParameter("codepostal"));
 			unStagiaire.setAdresse(request.getParameter("adresse"));
-			unStagiaire.setDatenaissance(conversionChaineenDate(
+			unStagiaire.setDatenaissance(Utils.conversionChaineenDate(
 					request.getParameter("datedenaissance"), "yyyy/MM/dd"));
 			unStagiaire.insertionStagiaire();
 			;
@@ -156,7 +196,8 @@ public class Controleur extends HttpServlet {
 		return destinationPage;
 	}
 
-	private String showStages(HttpServletRequest request) throws ParseException {
+	private String afficherStages(HttpServletRequest request)
+			throws ParseException {
 		String destinationPage;
 		List<Stage> listeStages;
 		try {
@@ -165,7 +206,7 @@ public class Controleur extends HttpServlet {
 			listeStages = unStage.rechercheLesStages();
 			request.setAttribute("liste", listeStages);
 			destinationPage = "/afficherStages.jsp";
-		} catch (MonException e) {
+		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 			destinationPage = "/Erreur.jsp";
 
@@ -179,10 +220,10 @@ public class Controleur extends HttpServlet {
 			Stage unStage = new Stage();
 			unStage.setId(request.getParameter("id"));
 			unStage.setLibelle(request.getParameter("libelle"));
-			unStage.setDatedebut(conversionChaineenDate(
-					request.getParameter("datedebut"), "yyyy/MM/dd"));
-			unStage.setDatefin(conversionChaineenDate(
-					request.getParameter("datefin"), "yyyy/MM/dd"));
+			unStage.setDatedebut(Utils.conversionChaineenDate(
+					request.getParameter("datedebut"), "yyyy-MM-dd"));
+			unStage.setDatefin(Utils.conversionChaineenDate(
+					request.getParameter("datefin"), "yyyy-MM-dd"));
 			unStage.setNbplaces(Integer.parseInt(request
 					.getParameter("nbplaces")));
 			unStage.setNbinscrits(Integer.valueOf(
@@ -191,8 +232,7 @@ public class Controleur extends HttpServlet {
 					(request.getParameter("nbinscrits"))).intValue());
 			unStage.insertionStage();
 			destinationPage = "/index.jsp";
-			request.setAttribute("MesSucces",
-					"Le stage a bien été ajouté !");
+			request.setAttribute("MesSucces", "Le stage a bien été ajouté !");
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 			System.out.println(e.getMessage());

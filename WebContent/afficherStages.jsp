@@ -73,7 +73,7 @@
 								  <td>
 								  	<form method="post" action="Controleur" onsubmit="">
 										<input type="hidden" name="id" value="${item.id}"  id="id"/>
-			  							<input type="hidden" name="action" value="modifierStage" />
+			  							<input type="hidden" name="action" value="aficherModifierStage" />
 									  	<button class="btn btn-default">Editer</button>
 									  </form>
 								  </td>
