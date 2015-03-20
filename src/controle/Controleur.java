@@ -27,13 +27,13 @@ public class Controleur extends HttpServlet {
 	private static final String AJOUT_STAGE = "ajoutStage";
 	private static final String AFFICHER_MODIFIER_STAGE = "aficherModifierStage";
 	private static final String MODIFIER_STAGE = "modifierStage";
-
 	private static final String RECHERCHER_STAGE = "rechercherStages";
 	private static final String SUPPRIMER_STAGE = "supprimerStage";
 
 	private static final String SAISIE_STAGIAIRE = "saisieStagiaire";
 	private static final String AFFICHER_STAGIAIRE = "afficheStagiaire";
 	private static final String AJOUT_STAGIAIRE = "ajoutStagiaire";
+	
 	private static final String ERROR_PAGE = null;
 
 	protected void processusTraiteRequete(HttpServletRequest request,
@@ -45,6 +45,7 @@ public class Controleur extends HttpServlet {
 		switch (actionName) {
 		// Application sur les stages
 		case SAISIE_STAGE:
+			request.setAttribute("title", "Ajout d'un stage");
 			request.setAttribute("stage", new Stage());
 			destinationPage = "/saisieStage.jsp";
 			break;
@@ -52,18 +53,22 @@ public class Controleur extends HttpServlet {
 			destinationPage = ajoutStage(request);
 			break;
 		case AFFICHER_STAGE:
+			request.setAttribute("title", "Affichage des stages");
 			destinationPage = afficherStages(request);
 			break;
 		case AFFICHER_MODIFIER_STAGE:
 			destinationPage = afficherModifierStage(request);
 			break;
 		case MODIFIER_STAGE:
+			request.setAttribute("title", "Modification d'un stage");
 			destinationPage = modifierStage(request);
 			break;
 		case SUPPRIMER_STAGE:
+			request.setAttribute("title", "Suppression d'un stage");
 			destinationPage = supprimerStage(request);
 			break;
 		case RECHERCHER_STAGE:
+			request.setAttribute("title", "Recherche d'un stage");
 			destinationPage = rechercherStages(request);
 			break;
 
@@ -81,8 +86,7 @@ public class Controleur extends HttpServlet {
 			break;
 		}
 		// Redirection vers la page jsp appropriee
-		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher(destinationPage);
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(destinationPage);
 		dispatcher.forward(request, response);
 	}
 
@@ -105,7 +109,7 @@ public class Controleur extends HttpServlet {
 					(request.getParameter("nbinscrits"))).intValue());
 			unStage.misAJourStage(lastId, unStage);
 			destinationPage = "/index.jsp";
-			request.setAttribute("MesSucces", "Le stage a bien √©t√© modifi√© !");
+			request.setAttribute("MesSucces", "Le stage a bien ÈtÈ modifiÈ !");
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 			System.out.println(e.getMessage());
@@ -123,7 +127,7 @@ public class Controleur extends HttpServlet {
 				unStage.suppressionStage(id);
 				destinationPage = "/index.jsp";
 				request.setAttribute("MesSucces",
-						"Le stage a bien √©t√© supprimer !");
+						"Le stage a bien ÈtÈ supprimÈ !");
 			} catch (Exception e) {
 				request.setAttribute("MesErreurs", e.getMessage());
 				System.out.println(e.getMessage());
@@ -145,7 +149,7 @@ public class Controleur extends HttpServlet {
 				destinationPage = "/modifierStage.jsp";
 			} else {
 				request.setAttribute("MesErreurs",
-						"Une √©rreur est survenu, veuillez contacter l'administrateur.");
+						"Une erreur est survenue, veuillez contacter l'administrateur.");
 				destinationPage = "/Erreur.jsp";
 			}
 		} catch (Exception e) {
@@ -235,11 +239,11 @@ public class Controleur extends HttpServlet {
 				unStage.insertionStage();
 				destinationPage = "/index.jsp";
 				request.setAttribute("MesSucces",
-						"Le stage a bien √©t√© ajout√© !");
-			} else {// Il existe d√©j√† un stage avec cet identifiant
+						"Le stage a bien ÈtÈ ajoutÈ !");
+			} else {// Il existe dÈj‡† un stage avec cet identifiant
 				request.setAttribute("MesErreurs",
-						"Cet identifiant est d√©j√† utilis√© !");
-				System.out.println("Cet identifiant est d√©j√† utilis√© !");
+						"Cet identifiant est dÈj‡† utilisÈ !");
+				System.out.println("Cet identifiant est dÈj‡† utilisÈ !");
 				destinationPage = "/index.jsp";
 			}
 		} catch (Exception e) {
@@ -259,21 +263,10 @@ public class Controleur extends HttpServlet {
 			listeStages = unStage.rechercheLesStages(request
 					.getParameter("libelle"));
 			request.setAttribute("liste", listeStages);
+			if (listeStages.isEmpty() && request.getParameter("libelle") != null){
+				request.setAttribute("MesErreurs", "Aucun stage ne correspond ‡ votre recherche ... Essayez encore.");
+			}
 			request.setAttribute("libelle", request.getParameter("libelle"));
-
-			// unStage.setId(request.getParameter("id"));
-			// unStage.setLibelle(request.getParameter("libelle"));
-			// unStage.setDatedebut(conversionChaineenDate(
-			// request.getParameter("datedebut"), "yyyy/MM/dd"));
-			// unStage.setDatefin(conversionChaineenDate(
-			// request.getParameter("datefin"), "yyyy/MM/dd"));
-			// unStage.setNbplaces(Integer.parseInt(request
-			// .getParameter("nbplaces")));
-			// unStage.setNbinscrits(Integer.valueOf(
-			// (request.getParameter("nbplaces"))).intValue());
-			// unStage.setNbinscrits(Integer.valueOf(
-			// (request.getParameter("nbinscrits"))).intValue());
-			// unStage.insertionStage();
 			destinationPage = "/rechercherStages.jsp";
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
@@ -283,7 +276,7 @@ public class Controleur extends HttpServlet {
 		return destinationPage;
 	}
 
-	// L'appel de cette proc√©dure se fait avec :
+	// L'appel de cette procÈdure se fait avec :
 
 	@Override
 	protected void doGet(HttpServletRequest request,

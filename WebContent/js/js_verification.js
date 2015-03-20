@@ -20,13 +20,12 @@ function verif() {
 		$("#num")
 				.find(".error-message")
 				.fadeIn('slow')
-				.text(
-						"Entrer un identifiant (nombre compris entre 1 et 99999999999.");
+				.text("Entrer un identifiant (nombre compris entre 1 et 99999999999.");
 		passe = false;
 	} else {
 		$("#num").find(".error-message").hide();
 	}
-	if (document.getElementById("libelle").value == "") {
+	if (document.getElementById("libelle").value.equals("")) {
 		$("#lib").find(".error-message").fadeIn('slow').text(
 				"Entrer un libelle.");
 		passe = false;

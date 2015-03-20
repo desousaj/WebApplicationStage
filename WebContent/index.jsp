@@ -1,42 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ include file="head.jsp" %>
 <%@page import="java.util.Date,java.text.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Gestion des stages</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  		<meta name="description" content="">
-  		<meta name="author" content="">
-		<link rel="stylesheet" href="css/style.css" />
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		
 
-		<link rel="shortcut icon" href="images/favicon.png">
-		 
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>	
-		<script type="text/javascript" src="js/js_verification.js"></script>
-	</head>
-
-
-
-	<body>
-	<c:if test="${not empty MesSucces}">	
-		<div class="alert alert-success alert-dismissible" role="alert">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  <strong>Succès !</strong> ${MesSucces}
-		</div>
-	</c:if>
-	
-	<c:if test="${not empty MesErreurs}">
-		<div class="alert alert-danger alert-dismissible" role="alert">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  <strong>Erreur !</strong> ${MesErreurs}
-		</div>
-	</c:if>
 		<div class="container">
 			<div class="row clearfix">
 				<div class="col-md-12 column">
@@ -73,22 +37,23 @@
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										 <a class="panel-title" data-toggle="collapse" data-parent="#panel-934093" href="#panel-element-120256">Gestion des stagiaires</a>
-									</div>
-									<div id="panel-element-120256" class="panel-collapse collapse">										
-										<div class="panel-body">
-											<a href="Controleur?action=rechercheStage">Création d'un stagiaire</a>
-										</div>
-										<div class="panel-body">
-											<a href="Controleur?action=afficheStagiaire">Afficher les stagiaires</a>
-										</div>
-										<div class="panel-body">
-											<a href="Controleur?action=rechercheStage">Rechercher un stagiaire</a>
-										</div>
-									</div>
-								</div>
+<!-- 								Not implemented yet -->
+<!-- 								<div class="panel panel-default"> -->
+<!-- 									<div class="panel-heading"> -->
+<!-- 										 <a class="panel-title" data-toggle="collapse" data-parent="#panel-934093" href="#panel-element-120256">Gestion des stagiaires</a> -->
+<!-- 									</div> -->
+<!-- 									<div id="panel-element-120256" class="panel-collapse collapse">										 -->
+<!-- 										<div class="panel-body"> -->
+<!-- 											<a href="Controleur?action=rechercheStage">Création d'un stagiaire</a> -->
+<!-- 										</div> -->
+<!-- 										<div class="panel-body"> -->
+<!-- 											<a href="Controleur?action=afficheStagiaire">Afficher les stagiaires</a> -->
+<!-- 										</div> -->
+<!-- 										<div class="panel-body"> -->
+<!-- 											<a href="Controleur?action=rechercheStage">Rechercher un stagiaire</a> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 							</div>
 						</div>
 					</div>

@@ -18,11 +18,11 @@ public class DialogueBd {
         return instance;
     }
 	 
-	private  DialogueBd() {
+	private DialogueBd() {
 		super();
 	}
 
-	public  static void insertionBD (String mysql)   throws MonException 
+	public static void insertionBD (String mysql)   throws MonException 
 	{   
 		Connection cnx=null;
 		try 

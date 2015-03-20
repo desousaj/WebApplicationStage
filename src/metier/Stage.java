@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import meserreurs.MonException;
 import persistance.DialogueBd;
+import meserreurs.MonException;
 import utils.Utils;
 
 public class Stage {
@@ -84,7 +84,7 @@ public class Stage {
 		this.datefin = datefin;
 	}
 
-	/* traitements mï¿½tier */
+	/* traitements métier */
 
 	public void insertionStage() throws MonException {
 
@@ -155,7 +155,7 @@ public class Stage {
 			List<Object> rs = DialogueBd.lecture(mysql);
 			if (rs != null && !rs.isEmpty()) {
 				unS = new Stage();
-				// On crï¿½e un stage
+				// On crée un stage
 				// il faut redecouper la liste pour retrouver les lignes
 				unS.setId(rs.get(index + 0).toString());
 				Date dateDebut = Utils.conversionChaineenDate(rs.get(index + 2)
@@ -190,7 +190,7 @@ public class Stage {
 			rs = DialogueBd.lecture(mysql);
 
 			while (index < rs.size()) {
-				// On crï¿½e un stage
+				// On crée un stage
 				Stage unS = new Stage();
 				// il faut redecouper la liste pour retrouver les lignes
 				unS.setId(rs.get(index + 0).toString());
@@ -202,7 +202,7 @@ public class Stage {
 				unS.setNbplaces(Integer.parseInt(rs.get(index + 4).toString()));
 				unS.setNbinscrits(Integer
 						.parseInt(rs.get(index + 5).toString()));
-				// On incrï¿½mente tous les 6 champs
+				// On incrémente tous les 6 champs
 				index = index + 6;
 				mesStages.add(unS);
 			}
@@ -233,7 +233,7 @@ public class Stage {
 			rs = DialogueBd.lecture(mysql);
 
 			while (index < rs.size()) {
-				// On crï¿½e un stage
+				// On créé un stage
 				Stage unS = new Stage();
 				// il faut redecouper la liste pour retrouver les lignes
 				unS.setId(rs.get(index + 0).toString());
@@ -246,7 +246,7 @@ public class Stage {
 				unS.setNbplaces(Integer.parseInt(rs.get(index + 4).toString()));
 				unS.setNbinscrits(Integer
 						.parseInt(rs.get(index + 5).toString()));
-				// On incrï¿½mente tous les 6 champs
+				// On incrémente tous les 6 champs
 				index = index + 6;
 				mesStages.add(unS);
 			}

@@ -1,36 +1,51 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%> 
-<%@page import="java.util.Date,java.text.*"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Ajout d'un stages</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  		<meta name="description" content="">
-  		<meta name="author" content="">
-		<link rel="stylesheet" href="css/style.css" />
-		<link rel="stylesheet" href="css/jquery-ui.min.css" />
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
+<%-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  --%>
+<%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" --%>
+<%--     pageEncoding="ISO-8859-1"%>  --%>
+<%-- <%@page import="java.util.Date,java.text.*"%> --%>
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!-- <html> -->
+<!-- 	<head> -->
+<!-- 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
+<!-- 		<title>Ajout d'un stages</title> -->
+<!-- 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+<!--   		<meta name="description" content=""> -->
+<!--   		<meta name="author" content=""> -->
+<!-- 		<link rel="stylesheet" href="css/style.css" /> -->
+<!-- 		<link rel="stylesheet" href="css/jquery-ui.min.css" /> -->
+<!-- 		<link href="css/bootstrap.min.css" rel="stylesheet"> -->
 		
 
-		<link rel="shortcut icon" href="images/favicon.png">
+<!-- 		<link rel="shortcut icon" href="images/favicon.jpg"> -->
 		 
-		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>	
-		<script type="text/javascript" src="js/js_verification.js"></script>
+<!-- 		<script type="text/javascript" src="js/jquery.min.js"></script> -->
+<!-- 		<script type="text/javascript" src="js/bootstrap.min.js"></script>	 -->
+<!-- 		<script type="text/javascript" src="js/js_verification.js"></script> -->
 		
-		<!-- TODO mettre dans js  -->
-		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<!-- 		<!-- TODO mettre dans js  -->
+<!-- 		<script type="text/javascript" src="js/jquery-ui.min.js"></script> -->
 
-	</head>
+<!-- 	</head> -->
 
 
-<body onLoad="Chargement();">
-<!--  TODO : faire un menu-->
-<P><A href="index.jsp"><FONT face="Arial" color="#004080">Retour Accueil</FONT></A></P>
+<!-- <body onLoad="Chargement();"> -->
+<%-- <c:if test="${not empty MesSucces}">	 --%>
+<!-- 		<div class="alert alert-success alert-dismissible" role="alert"> -->
+<!-- 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+<%-- 		  <strong>Succès !</strong> ${MesSucces} --%>
+<!-- 		</div> -->
+<%-- 	</c:if> --%>
+	
+<%-- 	<c:if test="${not empty MesErreurs}"> --%>
+<!-- 		<div class="alert alert-danger alert-dismissible" role="alert"> -->
+<!-- 		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+<%-- 		  <strong>Erreur !</strong> ${MesErreurs} --%>
+<!-- 		</div> -->
+<%-- 	</c:if> --%>
+
+<!-- 	<P><A href="index.jsp"><FONT face="Arial" color="#004080">Retour Accueil</FONT></A></P> -->
+
+<%@ include file="head.jsp" %>
 
 <div class="container">
 			<div class="row clearfix">
