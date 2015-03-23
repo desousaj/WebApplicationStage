@@ -55,11 +55,11 @@
 									 <span class="error-message"></span>
 								</div>
 								<div class="form-group" id="dd">
-									 <label for="datedebut">Date de début du stage</label><input class="form-control" type="Date" pattern="dd/mm/yyyy" name="datedebut" value="${stage.datedebut}" id="datedebut" />
+									 <label for="datedebut">Date de début du stage *</label><input class="form-control" type="Date" pattern="dd/mm/yyyy" name="datedebut" value="${stage.datedebut}" id="datedebut" />
 									 <span class="error-message"></span>
 								</div>
 								<div class="form-group" id="df">
-									 <label for="datefin">Date de fin de stage</label><input class="form-control" type="Date" pattern="dd/mm/yyyy" name="datefin" value="${stage.datefin}" id="datefin" />
+									 <label for="datefin">Date de fin de stage *</label><input class="form-control" type="Date" pattern="dd/mm/yyyy" name="datefin" value="${stage.datefin}" id="datefin" />
 									 <span class="error-message"></span>
 								</div>
 								<div class="form-group" id="np">
@@ -69,6 +69,7 @@
 								<div class="form-group" id="ni">
 									 <label for="nbinscrits">Nombre d'inscrits</label><input class="form-control" type="text" name="nbinscrits" value="${stage.nbinscrits}" id="nbinscrits" />
 									 <span class="error-message"></span>
+									<span id="helpBlock" class="help-block">* Attention, les dates doivent être rentrées sur Google Chrome avec le format suivant : jj/mm/aaaa (Sur les autres navigateurs, on a une erreur de format)</span>
 								</div>								
 								<button type="submit" class="btn btn-default" name="ajouter" value="Ajouter">Ajouter</button>
 								<button type="reset" class="btn btn-default" name="reset" value="Reset">Reset</button>							
