@@ -14,7 +14,7 @@
 					<div class="row clearfix">
 						<div class="col-md-12 column">
 							<p>
-OUPS ! Une erreur est survenue. Merci de contacter l'administrateur 							</p>
+	OUPS ! Une erreur est survenue. Merci de contacter l'administrateur 							</p>
 						</div>
 					</div>
 					

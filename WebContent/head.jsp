@@ -49,7 +49,7 @@
         <input type="hidden" name="type" value="recherche" id="type" /> 
 <input type="hidden" name="action" value="rechercherStages" />
 						<div class="form-group">
- 							<input class="form-control" type="text" name="libelle" id="libelle" placeholder="Entrez le nom d'un stage" />
+ 							<input class="form-control" type="text" name="libelle" placeholder="Entrez le nom d'un stage" />
 						</div>
         <button type="submit" class="btn btn-default"name="rechercher" value="Rechercher">Rechercher</button>
       </form>

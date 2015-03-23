@@ -55,11 +55,11 @@
 									 <span class="error-message"></span>
 								</div>
 								<div class="form-group" id="dd">
-									 <label for="datedebut">Date de début du stage</label><input class="form-control" type="Date" pattern="dd/MM/yyyy" name="datedebut" value="${stage.datedebut}" id="datedebut" />
+									 <label for="datedebut">Date de début du stage</label><input class="form-control" type="Date" pattern="dd/mm/yyyy" name="datedebut" value="${stage.datedebut}" id="datedebut" />
 									 <span class="error-message"></span>
 								</div>
 								<div class="form-group" id="df">
-									 <label for="datefin">Date de fin de stage</label><input class="form-control" type="Date" pattern="dd/MM/yyyy" name="datefin" value="${stage.datefin}" id="datefin" />
+									 <label for="datefin">Date de fin de stage</label><input class="form-control" type="Date" pattern="dd/mm/yyyy" name="datefin" value="${stage.datefin}" id="datefin" />
 									 <span class="error-message"></span>
 								</div>
 								<div class="form-group" id="np">
@@ -73,6 +73,9 @@
 								<button type="submit" class="btn btn-default" name="ajouter" value="Ajouter">Ajouter</button>
 								<button type="reset" class="btn btn-default" name="reset" value="Reset">Reset</button>							
 							</form>
+							<script>
+								bindForm();
+						  	</script>
 						</div>
 					</div>
 				</div>
@@ -80,7 +83,5 @@
 		</div>		
 	</body>
 	
-	<script>
-		bindForm();
-  	</script>
+	
 </html>
